@@ -5,11 +5,24 @@ This file mirrors notebook logic for script-style orchestration.
 # ---------------------------------------------------------------------------
 # Configuration: which counties, which years, which crop.
 # ---------------------------------------------------------------------------
+from pathlib import Path
 from cropnet.data_downloader import DataDownloader
 from huggingface_hub import hf_hub_download
 import os, shutil
 
-TARGET_DIR = "/content/cropnet_data"
+_cwd = Path.cwd().resolve()
+if (_cwd / "notebooks").is_dir():
+    _repo = _cwd
+elif _cwd.name == "notebooks":
+    _repo = _cwd.parent
+else:
+    _repo = _cwd
+
+TARGET_DIR = os.environ.get(
+    "CROPY_TARGET_DIR",
+    str(_repo / "data" / "cropnet_data"),
+)
+os.makedirs(TARGET_DIR, exist_ok=True)
 CROP       = "Corn"
 
 # Train counties span 5 states in the US Corn Belt.
