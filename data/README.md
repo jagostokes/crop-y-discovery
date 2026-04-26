@@ -4,7 +4,12 @@ The CropNet stack here is **satellite time series + HRRR weather + USDA county y
 
 ## Where the code expects data
 
-The notebook and the mirrored modules under `src/cells/` use a single base path, **`TARGET_DIR`**, set in the configuration cell (see `src/cells/cell_04.py` and the same block in `notebooks/Crop_y_Discovery.ipynb`). By default that path is aimed at Colab (`/content/cropnet_data`). For your machine, set it to something under this directory if you want, e.g. `data/cropnet_raw`, or any absolute path where you stored the CropNet tree.
+The notebook and `src/cells/cell_04.py` set **`TARGET_DIR`** to:
+
+- the **`CROPY_TARGET_DIR`** environment variable if set, otherwise  
+- **`<repo>/data/cropnet_data`** (created automatically when the cell runs).
+
+Override when you need a different disk (e.g. Colab): `export CROPY_TARGET_DIR=/content/cropnet_data` before running scripts, or set the env in the first notebook cell.
 
 ## How it gets there
 

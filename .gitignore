@@ -8,3 +8,5 @@ data/*
 !data/README.md
 models/*
 !models/.gitkeep
+!models/README.md
+!models/multimodal_yield_corn.pt
