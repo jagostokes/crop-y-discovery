@@ -34,11 +34,11 @@ The notebook uses **two different baselines**, and the README used to blur them 
 - **Global train-mean baseline:** one constant (mean training yield in BU/acre) predicted for every test sample. That is what the printed “skill score” and the middle column below refer to.
 - **County historical-mean baseline:** for each test county-year, predict that county’s historical average yield (from `test_ds.hist_yields` / USDA history), which is a stronger sanity check than a single global number.
 
-| Metric | Model | Global train-mean baseline | County historical-mean baseline |
-|--------|-------|----------------------------|----------------------------------|
-| RMSE (BU/acre) | 10.78 | 18.53 | 17.42 |
-| MAE (BU/acre) | 9.15 | 15.63 | 14.55 |
-| R² | 0.37 | −0.87 | 0.18 |
+| Metric         | Model | Global train-mean baseline | County historical-mean baseline |
+| -------------- | ----- | -------------------------- | ------------------------------- |
+| RMSE (BU/acre) | 10.78 | 18.53                      | 17.42                           |
+| MAE (BU/acre)  | 9.15  | 15.63                      | 14.55                           |
+| R²             | 0.37  | −0.87                      | 0.18                            |
 
 Skill vs the **global** baseline is about **42% lower RMSE**; the model also beats the **per-county historical** baseline on RMSE in this run (about **6.6 BU/acre** better).
 
@@ -46,7 +46,23 @@ Qualitatively: the model does better than both trivial predictors on this split,
 
 ## Individual Contributions
 
-Solo project — design, implementation, experiments, and write-ups are all mine.
+**Angad Miglani**
+
+- Discovered and implemented the HuggingFace-based Sentinel-2 download workaround, reverse-engineering the correct repo path structure after the official `DataDownloader` silently failed without Sentinel Hub credentials
+- Diagnosed and patched the pandas 3.x incompatibility in the CropNet library via a `pd.read_json` monkey-patch so the pipeline runs on modern environments without touching the library source
+- Built `MultimodalCropDataset` — assembles all three modalities (satellite sequences, weather vectors, USDA labels) into batched tensors, including variable-T truncation to handle differing observation counts across counties
+- Implemented county-level 80/20 train/test split to prevent data leakage across geographic regions
+- Ran all experiments, interpreted results, and created both all presentations required.
+
+**Jago Stokes**
+
+- Designed the multimodal model architecture: `SatelliteEncoder` (pretrained ResNet18 with temporal mean-pooling), `WeatherMLP`, and `MultiModalYieldNet` fusion head
+- Implemented the training loop with early stopping, `ReduceLROnPlateau` LR scheduling, gradient clipping, and best-checkpoint restoration
+- Set up `SequenceFlipAugment` for temporally-consistent data augmentation
+- Built `MultimodalCropDataset` — assembles all three modalities (satellite sequences, weather vectors, USDA labels) into batched tensors, including variable-T truncation to handle differing observation counts across counties
+- Established the two-baseline evaluation framework (global mean + county historical mean) and skill score comparison
+- Implemented experiment logging system writing structured Markdown from checkpoint metadata
+- Set up repository structure and video script.
 
 ---
 

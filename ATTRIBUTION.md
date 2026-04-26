@@ -5,19 +5,10 @@
 | Area                                                                 | Tool / model (if known) | What it helped with                                                                                           |
 | -------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Repository docs (`README.md`, `SETUP.md`, this file)                 | Cursor                  | Structure, wording, checklist alignment with course handout                                                   |
+| Code comments across the notebook                                    | Cursor                  | Generated and refined explanatory comments and docstrings                                                     |
 | Pandas 3.x compatibility patch (`pd.read_json` monkey-patch)         | Claude                  | Identifying that pandas 3.x no longer accepts raw JSON strings and suggesting the `io.StringIO` wrapper fix   |
 | DataLoader construction                                              | Claude                  | Minor guidance on `random_split` usage and `worker_init_fn` for reproducible shuffling                        |
 | Weather-to-embedding conversion (`WeatherMLP`, `_weather_to_vector`) | Claude                  | Minor assistance on structuring the MLP layers and padding/truncating the weather vector to a fixed dimension |
-Per course policy, generative AI was allowed on the final project. The notes below document where AI assistance was used in this repository.
-
-| Area | Tool / model (if known) | What it helped with |
-|------|-------------------------|---------------------|
-| Repository docs (`README.md`, `SETUP.md`, this file) | Cursor | Structure, wording, checklist alignment with course handout |
-| Code comments across `src/` and the notebook | Cursor / ChatGPT | Generated and refined explanatory comments/docstrings |
-| Dataloader subsection (`src/` dataloader code) | Cursor | Drafted part of the dataloader implementation, then reviewed/edited by me |
-| Notebook-to-module extraction (`src/cells/*.py`, pipeline wrappers) | Cursor | Converted each notebook code cell into a module and wired `src/get-data.py`, `src/train-model.py`, `src/test-model.py` |
-
-You are responsible for correctness of all submitted work regardless of how it was drafted.
 
 ## External codebases
 
