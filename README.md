@@ -1,6 +1,8 @@
 # Crop Yield Discovery
 
-County-level corn yield prediction from public satellite and weather data. I took the CropNet setup (Sentinel-2 + HRRR + USDA labels), kept the temporal dimension instead of averaging it away, added a real weather branch and fusion head on top of a pretrained ResNet18 backbone, and compared everything against a simple mean-yield baseline so the numbers actually mean something.
+County-level corn yield prediction from public satellite and weather data. We took the CropNet setup (Sentinel-2 + HRRR + USDA labels), kept the temporal dimension instead of averaging it away, added a real weather branch and fusion head on top of a pretrained ResNet18 backbone, and compared everything against a simple mean-yield baseline and a more complex historical baseline so the numbers actually mean something.
+
+Why it matters: more reliable yield expectations help readers of this work—and anyone downstream of the data—agree on likely supply. Suppliers, buyers, and co-ops can use those expectations to plan interventions when the outlook is poor (logistics, inputs, risk management) and to set prices and contracts more fairly when the outlook is strong. The model is a decision support tool, not a guarantee, but it keeps the story quantitative and legible to both technical and business audiences.
 
 ## What it Does
 
@@ -9,6 +11,7 @@ The notebook trains a multimodal model: satellite sequences go through ResNet18 
 ## Quick Start
 
 1. Read **[SETUP.md](SETUP.md)** for environment options (local vs Colab), CropNet access, and GPU notes.
+or just look at this notebook: https://colab.research.google.com/drive/1Lgc-mj6RCm8FWGDDBrCRVia_jKj3xoTV?usp=sharing
 2. Open **`notebooks/Crop_y_Discovery.ipynb`** and run cells in order from the top. The first cells install system deps (eccodes) where needed for HRRR.
 3. Point the notebook at your CropNet data path (see SETUP) and run training through evaluation.
 
@@ -19,8 +22,6 @@ If you want script-style execution, the same notebook code has been mirrored int
 - `python src/test-model.py`
 
 ## Video Links
-
-Recordings live on YouTube (you can also drop `.mp4` files in `videos/` and link those instead). Swap in your real URLs:
 
 - **Project demo** : `https://youtu.be/RTUYCbKgiQ8`
 - **Technical walkthrough** : `https://youtu.be/Ba5DGcPNF6I`
