@@ -27,16 +27,22 @@ Recordings live on YouTube (you can also drop `.mp4` files in `videos/` and link
 
 ## Evaluation
 
-Numbers below are from a completed run already saved in the notebook outputs (held-out test counties, global-mean baseline). Your exact figures may shift slightly with seed/hardware, but should be in the same ballpark if you follow the same split and hyperparameters.
+Numbers below are from a completed run already saved in the notebook outputs (held-out test counties). Your exact figures may shift slightly with seed/hardware, but should be in the same ballpark if you follow the same split and hyperparameters.
 
-| Metric | Model | Baseline (constant train mean) |
-|--------|-------|--------------------------------|
-| RMSE (BU/acre) | 10.78 | 18.53 |
-| MAE (BU/acre) | 9.15 | 15.63 |
-| R² | 0.37 | −0.87 |
-| Skill vs baseline | ~42% lower RMSE | — |
+The notebook uses **two different baselines**, and the README used to blur them together:
 
-Qualitatively: predictions track actual yields better than guessing the same number for every county-year, and the learning curves in the notebook show validation RMSE improving before early stopping kicks in. R² is modest — small geographic sample, hard transfer to unseen counties — which is exactly why I report the baseline side by side.
+- **Global train-mean baseline:** one constant (mean training yield in BU/acre) predicted for every test sample. That is what the printed “skill score” and the middle column below refer to.
+- **County historical-mean baseline:** for each test county-year, predict that county’s historical average yield (from `test_ds.hist_yields` / USDA history), which is a stronger sanity check than a single global number.
+
+| Metric | Model | Global train-mean baseline | County historical-mean baseline |
+|--------|-------|----------------------------|----------------------------------|
+| RMSE (BU/acre) | 10.78 | 18.53 | 17.42 |
+| MAE (BU/acre) | 9.15 | 15.63 | 14.55 |
+| R² | 0.37 | −0.87 | 0.18 |
+
+Skill vs the **global** baseline is about **42% lower RMSE**; the model also beats the **per-county historical** baseline on RMSE in this run (about **6.6 BU/acre** better).
+
+Qualitatively: the model does better than both trivial predictors on this split, and the learning curves in the notebook show validation RMSE improving before early stopping. R² versus the global constant looks better than versus county history because the historical predictor already explains some geographic structure.
 
 ## Individual Contributions
 

@@ -3,7 +3,7 @@ This file mirrors notebook logic for script-style orchestration.
 """
 
 # ---------------------------------------------------------------------------
-# Persist the trained model to Google Drive (not /content, which is ephemeral).
+# Persist the trained model under <repo>/models/ (or CROPY_CKPT_DIR if set).
 # ---------------------------------------------------------------------------
 # What we save:
 #   - model_state:      the actual weights (load with model.load_state_dict)
@@ -17,15 +17,19 @@ This file mirrors notebook logic for script-style orchestration.
 # plan to resume training later.
 # ---------------------------------------------------------------------------
 import os
+from pathlib import Path
 
-# Mount Drive (uncomment when running in Colab).
-# from google.colab import drive
-# drive.mount("/content/drive")
-# CKPT_DIR = "/content/drive/MyDrive/CropNet"
+# Saves to models/multimodal_yield_<crop>.pt under the repo root when cwd is
+# the repo or the notebooks/ folder. Override: export CROPY_CKPT_DIR=/your/path
+_cwd = Path.cwd().resolve()
+if (_cwd / "notebooks").is_dir():
+    _repo = _cwd
+elif _cwd.name == "notebooks":
+    _repo = _cwd.parent
+else:
+    _repo = _cwd
 
-# Fallback for non-Colab environments.
-CKPT_DIR = "/content/drive/MyDrive/CropNet" if os.path.exists("/content/drive") \
-           else "/content"
+CKPT_DIR = os.environ.get("CROPY_CKPT_DIR", str(_repo / "models"))
 os.makedirs(CKPT_DIR, exist_ok=True)
 
 ckpt_path = os.path.join(CKPT_DIR, f"multimodal_yield_{CROP.lower()}.pt")
