@@ -22,7 +22,7 @@ If you want script-style execution, the same notebook code has been mirrored int
 
 Recordings live on YouTube (you can also drop `.mp4` files in `videos/` and link those instead). Swap in your real URLs:
 
-- **Project demo** (3–5 min): `https://www.youtube.com/watch?v=YOUR_DEMO_VIDEO_ID`
+- **Project demo** (3–5 min): `https://youtu.be/RTUYCbKgiQ8`
 - **Technical walkthrough** (5–10 min): `https://www.youtube.com/watch?v=YOUR_TECH_VIDEO_ID`
 
 ## Evaluation
