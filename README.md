@@ -12,7 +12,11 @@ The notebook trains a multimodal model: satellite sequences go through ResNet18 
 2. Open **`notebooks/Crop_y_Discovery.ipynb`** and run cells in order from the top. The first cells install system deps (eccodes) where needed for HRRR.
 3. Point the notebook at your CropNet data path (see SETUP) and run training through evaluation.
 
-There is no separate CLI entrypoint yet — the notebook *is* the runnable project.
+If you want script-style execution, the same notebook code has been mirrored into `src/cells/` (one file per code cell), with entrypoints:
+
+- `python src/get-data.py`
+- `python src/train-model.py`
+- `python src/test-model.py`
 
 ## Video Links
 

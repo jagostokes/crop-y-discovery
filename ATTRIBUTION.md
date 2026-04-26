@@ -2,12 +2,14 @@
 
 ## AI-assisted code and prose
 
-Per course policy, generative AI was allowed on the final project. Anything produced with help from tools like Cursor, ChatGPT, DukeGPT, or Copilot should be noted at **file / class / function** level in code comments or docstrings where the assist was substantial.
+Per course policy, generative AI was allowed on the final project. The notes below document where AI assistance was used in this repository.
 
 | Area | Tool / model (if known) | What it helped with |
 |------|-------------------------|---------------------|
 | Repository docs (`README.md`, `SETUP.md`, this file) | Cursor | Structure, wording, checklist alignment with course handout |
-| *(add rows as you use AI on `src/` or the notebook)* | | |
+| Code comments across `src/` and the notebook | Cursor / ChatGPT | Generated and refined explanatory comments/docstrings |
+| Dataloader subsection (`src/` dataloader code) | Cursor | Drafted part of the dataloader implementation, then reviewed/edited by me |
+| Notebook-to-module extraction (`src/cells/*.py`, pipeline wrappers) | Cursor | Converted each notebook code cell into a module and wired `src/get-data.py`, `src/train-model.py`, `src/test-model.py` |
 
 You are responsible for correctness of all submitted work regardless of how it was drafted.
 

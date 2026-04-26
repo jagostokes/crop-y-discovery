@@ -37,6 +37,18 @@ brew install eccodes
 
 If `cfgrib` / `xarray` throws import errors, the fix is almost always “install eccodes for your OS, then reinstall the Python stack.”
 
+## Script entrypoints (optional)
+
+The notebook is still the primary workflow. I also mirrored every notebook code cell into `src/cells/` and wired three script entrypoints:
+
+```bash
+python src/get-data.py
+python src/train-model.py
+python src/test-model.py
+```
+
+These run cell modules sequentially with shared state. Any notebook magics (`!` / `%`) are left as comments in the extracted files, so dependency/system setup should still be done from this setup guide (or directly in the notebook).
+
 ## Trained weights
 
 Checkpoints should be written under **`models/`** (or Google Drive if you use the Colab persistence path in the notebook). Add `models/` patterns to `.gitignore` if files are huge; for grading, either include a small exported checkpoint or document how to reproduce training in the technical video.
